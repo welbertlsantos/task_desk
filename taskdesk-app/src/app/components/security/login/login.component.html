@@ -1,0 +1,47 @@
+<div class="col-md-4" style="margin-left:20%">
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">TaskDesk Sistema de Tarefas | Login</h3>
+      </div>
+      <form class="form-horizontal" #form="ngForm" (ngSubmit)="login()" novalidate>
+        <div class="alert alert-error" role="alert" *ngIf="message">
+          <strong>Email ou senha inválido!</strong>
+        </div>
+        <div class="box-body">
+          <div [ngClass]="getFormGroupClass(email.invalid,email.dirty)">
+            <label for="inputEmail" class="col-sm-2 ">Email</label>
+            <div class="col-sm-10">
+              <input type="email" 
+                     [(ngModel)]="user.email"
+                     name="email"
+                     class="form-control" 
+                     id="inputEmail" 
+                     #email="ngModel"
+                     placeholder="Email"
+                     email
+                     required>
+              <span class="help-block" *ngIf="email.invalid  && email.dirty">E-mail é inváldo! </span>
+            </div>
+          </div>
+          <div [ngClass]="getFormGroupClass(password.invalid,password.dirty)">
+            <label for="inputPassword" class="col-sm-2 ">Senha</label>
+            <div class="col-sm-10">
+              <input type="password" 
+                     [(ngModel)]="user.password"
+                     name="password" 
+                     class="form-control" 
+                     id="inputPassword" 
+                     placeholder="Password"
+                     #password="ngModel" 
+                     required>
+              <span class="help-block" *ngIf="password.invalid && password.dirty">Senha é obrigatória</span>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <button type="submit" (click)="cancelLogin()" class="btn btn-default">Cancelar</button>
+          <button type="submit" [disabled]="!form.valid" class="btn btn-info pull-right">Login</button>
+        </div>
+      </form>
+    </div>
+    </div>

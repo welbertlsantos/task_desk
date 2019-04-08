@@ -1,0 +1,32 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-files-o"></i>
+          <span>Usuario</span>
+          <span class="pull-right-container">
+            <span class="label label-primary pull-right">4</span>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a [routerLink]="['/user-new']"><i class="fa fa-circle-o"></i>Incluir Usuário</a></li>
+          <li><a [routerLink]="['/user-list']"><i class="fa fa-circle-o"></i>Listas Usuários</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+          <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Tarefa</span>
+            <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a [routerLink]="['/task-new']"><i class="fa fa-circle-o"></i>Incluir Tarefa</a></li>
+            <li><a [routerLink]="['/task-list']"><i class="fa fa-circle-o"></i>Listar Tarefas</a></li>
+          </ul>
+      </li>
+    </ul>
+  </section>
+</aside>

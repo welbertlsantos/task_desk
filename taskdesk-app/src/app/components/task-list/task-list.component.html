@@ -1,0 +1,96 @@
+<div [ngClass]="classCss" role="alert" *ngIf="message">
+    <strong>{{ message.text }}</strong>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Lista de Tarefas</h3>
+      </div>  
+      <!-- opções de filtros
+      <div class="box-body">
+          <div class="form-group">
+              <label for="inputCodigo" class="col-sm-2 control-label">Código</label>
+              <div class="col-sm-10">
+                <input type="text" 
+                    [(ngModel)]="taskFilter.codigoTask"
+                    name="codigoTask"
+                    class="form-control" 
+                    id="inputCodigoTask" 
+                    placeholder="Código">
+              </div>
+          </div>
+      </div>
+      <div class="box-body">
+          <div class="form-group">
+              <label for="inputTitulo" class="col-sm-2 control-label">Título</label>
+              <div class="col-sm-10">
+                <input type="text" 
+                    [(ngModel)]="taskFilter.titulo"
+                    name="titulo"
+                    class="form-control" 
+                    id="inputTitulo" 
+                    placeholder="Título">
+            </div>
+          </div>
+      </div>
+
+
+      <div class="box-body">
+        <div class="form-group">
+            <label for="inputPrioridade" class="col-sm-2 control-label">Prioridade</label>
+            <div class="col-sm-10">
+                <select [(ngModel)]="taskFilter.prioridade" 
+                    class="form-control select2" 
+                    name="prioridade"
+                    id="inputPrioridade"
+                    style="width: 100%;">
+                    <option>Normal</option>
+                    <option>Média</option>
+                    <option>Urgente</option>
+                </select>
+            </div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <button class="btn btn-info pull-left" (click)="cleanFilter()" >Limpar</button>  
+        <button style="margin-left: 10px" class="btn btn-info pull-right"  (click)="filter()" >Pesquisar</button>
+      </div>
+ -->
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tr>
+            <th>Código</th>
+            <th>Título</th>
+            <th>Prioridade</th>
+            <th>Data de Gravação</th>
+            <th>Usuário</th>
+            <th style="width: 10px">&nbsp;</th> <!-- alterar--> 
+            <th style="width: 10px">&nbsp;</th> <!-- excluir-->
+            <th style="width: 10px">&nbsp;</th> <!-- consultar-->
+          </tr>
+          <tr *ngFor="let task of listTask">
+            <td>{{task.codigoTask}}</td>
+            <td>{{task.titulo}}</td>
+            <td>{{task.prioridade}}</td>
+            <td>{{task.dataGravacao | date: 'dd/MM/yyyy'}}</td>
+            <td>{{task?.user?.email}}</td>
+            <td><button class="btn btn-primary" (click)="edit(task.id)">Alterar</button></td>
+            <td><button class="btn btn-danger" (click)="delete(task.id)">Excluir</button></td>
+            <td><button class="btn btn-success" (click)="detail(task.id)">Consultar</button></td>
+          </tr>  
+        </table>
+      </div>
+      
+      <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+          <li><a href="" (click)="setPreviousPage($event)">&laquo;</a></li>
+          <li *ngFor="let p of pages; let i=index">
+              <a [ngClass]="{'pagination-focus':i==page}"  href="" (click)="setPage(i,$event)">{{i+1}}</a>
+          </li>
+          <li><a href="" (click)="setNextPage($event)">&raquo;</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="col-md-6" style="margin-left:0%">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Incluir Tarefa</h3>
+        </div>
+        <form class="form-horizontal" #form="ngForm" (ngSubmit)="register()" novalidate>
+            <div [ngClass]="classCss" role="alert" *ngIf="message">
+                <strong>{{ message.text }}</strong>
+            </div>
+            <div class="box-body">
+                <!-- titulo-->        
+                <div [ngClass]="getFormGroupClass(titulo.invalid, titulo.dirty)">
+                    <label for="inputTitulo" class="col-sm-2 control-label">Título</label>
+                    <div class="col-sm-10">
+                        <input type="text" 
+                            [(ngModel)]="task.titulo"
+                            name="titulo"
+                            class="form-control" 
+                            id="inputTitulo" 
+                            #titulo="ngModel"
+                            placeholder="Título"
+                            required>
+                        <span class="help-block" *ngIf="titulo.invalid  && titulo.dirty">Título é obrigatório! </span>
+                    </div>
+                </div>
+                <!-- prioridade-->
+                <div [ngClass]="getFormGroupClass(prioridade.invalid, prioridade.dirty)">
+                    <label for="inputPrioridade" class="col-sm-2 control-label">Prioridade</label>
+                    <div class="col-sm-10">
+                        <select [(ngModel)]="task.prioridade" 
+                            class="form-control select2" 
+                            name="prioridade"
+                            id="inputPrioridade"
+                            #prioridade="ngModel"
+                            style="width: 100%;"
+                            required>
+                            <option>Baixa</option>
+                            <option>Normal</option>
+                            <option>Urgente</option>
+                        </select>
+                        <span class="help-block" *ngIf="prioridade.invalid && prioridade.dirty">Prioridade é obrigatória!</span>
+                    </div>
+                </div>
+                <!--descrição-->
+                <div [ngClass]="getFormGroupClass(descricao.invalid,descricao.dirty)">
+                    <label for="inputDescricao" class="col-sm-2 control-label">Descrição</label>
+                    <div class="col-sm-10">
+                        <textarea 
+                            [(ngModel)]="task.descricao"
+                            name="descricao" 
+                            class="form-control"
+                            rows="5" 
+                            id="inputDescricao" 
+                            placeholder="Descrição"
+                            #descricao="ngModel" 
+                            required>
+                        </textarea>
+                        <span class="help-block" *ngIf="descricao.invalid && descricao.dirty">Conteúdo é obrigatório</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" [disabled]="!form.valid" class="btn btn-info pull-right">Gravar</button>
+            </div>
+        </form>
+    </div>
+</div>

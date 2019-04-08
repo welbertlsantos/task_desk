@@ -1,0 +1,34 @@
+<div class="col-md-10" style="margin-left:0%">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Detalhar tarefa</h3>
+        </div>
+        <form class="form-horizontal">
+            <ul class="list-group list-group-unbordered">
+              <li class="list-group-item">
+                <b>Código :&nbsp;</b> <span>{{task.codigoTask}}</span> 
+              </li>
+              
+              <li class="list-group-item">
+                <b>Data de Gravação:&nbsp; </b><span>{{task.dataGravacao | date: 'dd/MM/yyyy'}}</span>
+              </li>
+              
+              <li class="list-group-item">
+                <b>Usuário:&nbsp; </b><span>{{task?.user?.email}}</span>
+              </li>              
+              
+              <li class="list-group-item">
+                <b>Título:&nbsp;</b><span>{{task.titulo}}</span>
+              </li> 
+
+              <li class="list-group-item">
+                  <b>Prioridade:&nbsp;</b><span>{{task.prioridade}}</span>
+              </li>
+
+              <li class="list-group-item">
+                  <b>Descrição:&nbsp;</b><span>{{task.descricao}}</span>
+              </li>
+            </ul>
+        </form>
+    </div>
+</div>
