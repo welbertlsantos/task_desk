@@ -9,7 +9,10 @@ const app = express();
 const router = express.Router();
 
 //Conexão ao Banco de Dados
+mongoose.connect('mongodb://localhost:27017/nodestor');
 
+//Carrer o modelo
+const Product = require('./models/product');
 
 //Carregar as rotas
 const indexRoute = require('./routes/index-routes');
