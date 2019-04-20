@@ -1,12 +1,13 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const Product = mongoose.model('Product');
-const repository = require('../repositories/product.repository');
+const Task = mongoose.model('Task');
+const repository = require('../repositories/task-repository');
+const guid = require('guid');
 
-exports.get = async (req, res, next ) => {
+exports.findAll = async (req, res, next ) => {
     try {
-        var data = await repository.get();
+        var data = await repository.findAll();
         res.status(200).send(data);
     }
     catch (e){
@@ -16,9 +17,9 @@ exports.get = async (req, res, next ) => {
     }   
 }
 
-exports.getBySlug = async (req, res, next ) => {
+exports.findByCodigoTask = async (req, res, next ) => {
     try{
-        var data = await repository.getBySlug(req.params.slug)
+        var data = await repository.findByCodigoTask(req.params.codigoTask)
         res.status(200).send(data);       
     }
     catch (e){
@@ -28,9 +29,9 @@ exports.getBySlug = async (req, res, next ) => {
     }  
 }
 
-exports.getById = async(req, res, next ) => {
+exports.findById = async(req, res, next ) => {
     try{
-        var data = await repository.getById(req.params.id)
+        var data = await repository.findById(req.params.id)
         res.status(200).send(data); 
     }
     catch (e){
@@ -41,22 +42,15 @@ exports.getById = async(req, res, next ) => {
         
 }
 
-exports.getByTag = async (req, res, next ) => {
+exports.created = async (req, res, next) => {
     try{
-        var data = await repository.getByTag(req.params.tags)
-        res.status(200).send(data);
-    }
-    catch (e){
-        res.status(500).send({
-            message : 'Falha ao processar a requisição!'
-        });
-    }        
-}
-
-exports.post = async (req, res, next) => {
-    try{
-        var data = await repository.created(req.body)
-        res.status(201).send({message: 'Produto cadastrado com sucesso!'});   
+        var data = await repository.created({
+            titulo: req.body.titulo,
+            descricao: req.body.descricao,
+            user: req.body.user,
+            codigoTask : guid.raw().substring(0,6)
+        })
+        res.status(201).send({message: 'Tarefa cadastrada com sucesso!'});   
     }
     catch (e){
         res.status(500).send({
@@ -65,10 +59,10 @@ exports.post = async (req, res, next) => {
     }      
 }
 
-exports.put = async (req, res, next) => {
+exports.update = async (req, res, next) => {
     try{
         var data = await repository.update(req.params.id, req.body)
-        res.status(200).send({message: 'Produto atualizado com sucesso!'});       
+        res.status(200).send({message: 'Tarefa atualizada com sucesso!'});       
     }
     catch (e){
         res.status(500).send({
@@ -81,7 +75,7 @@ exports.put = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
     try{
         var data = await repository.delete(req.body.id)
-        res.status(200).send({message: 'Produto excluido com sucesso!'}); 
+        res.status(200).send({message: 'Tarefa excluida com sucesso!'}); 
     }
     catch (e){
         res.status(500).send({

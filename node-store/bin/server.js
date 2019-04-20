@@ -1,5 +1,5 @@
 const app = require('../src/app'); 
-const debug = require('debug')('nodestr:server');
+const debug = require('debug')('taskdesk:server');
 const http = require('http');
 
 const port = normalizePort(process.env.PORT || '3000');

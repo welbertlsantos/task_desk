@@ -3,25 +3,29 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const config = require('./config');
 
 
 const app = express();
 const router = express.Router();
 
 //Conexão ao Banco de Dados
-mongoose.connect('mongodb://localhost:27017/nodestor');
+mongoose.connect(config.conectionString);
 
 //Carregar o modelo
-const Product = require('./models/product');
+const Task = require('./models/task-model'); 
+const User = require('./models/user-model');
 
 //Carregar as rotas
-const indexRoute = require('./routes/index-routes');
-const productsRoute = require('./routes/products-routes');
+const indexRoute = require('./routes/index-router');
+const taskRouter = require('./routes/task-router');
+const userRouter = require('./routes/user-router');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', indexRoute);
-app.use('/products', productsRoute);
+app.use('/tasks', taskRouter);
+app.use('/users', userRouter);
 
 module.exports = app;
