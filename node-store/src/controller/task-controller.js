@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Task = mongoose.model('Task');
 const repository = require('../repositories/task-repository');
 const guid = require('guid');
+const Authorizate = require('../services/authentication-service');
 
 exports.findAll = async (req, res, next ) => {
     try {
@@ -44,10 +45,14 @@ exports.findById = async(req, res, next ) => {
 
 exports.created = async (req, res, next) => {
     try{
+        
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        const dataToken = await Authorizate.decodeToken(token);
+        
         var data = await repository.created({
             titulo: req.body.titulo,
             descricao: req.body.descricao,
-            user: req.body.user,
+            user: dataToken.id,
             codigoTask : guid.raw().substring(0,6)
         })
         res.status(201).send({message: 'Tarefa cadastrada com sucesso!'});   

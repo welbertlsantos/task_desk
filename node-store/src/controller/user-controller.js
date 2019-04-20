@@ -5,6 +5,7 @@ const User = mongoose.model('User');
 const repository = require('../repositories/user-repository');
 const ValidacaoCampo = require('../validator/fluentValidator');
 const md5 = require('md5');
+const AuthService = require ('../services/authentication-service');
 
 exports.findAll = async (req, res, next ) => {
     try {
@@ -92,6 +93,41 @@ exports.delete = async (req, res, next) => {
             message : 'Falha ao processar a requisição!'
         });
     }       
+}
+
+exports.authenticate = async (req, res, next ) => {
+    try {
+        
+        const user = await repository.authenticate({
+            email: req.body.email,
+            password: md5(req.body.password + global.CHAVE_PRIVADA)
+        });
+        
+        /* gerando token */
+
+        if (!user) {
+            res.status(404).send({
+                message: 'Usuario não autorizado. email ou senha inválido!'
+            });    
+        }
+
+        const token = await AuthService.generationToken({
+            id: user._id,
+            email: user.email
+        });
+        
+        res.status(201).send({
+            token: token,
+            data: {
+                email: user.email,
+            }
+        });
+    }
+    catch (e){
+        res.status(500).send({
+            message : 'Falha ao processar a requisição!'
+        });
+    }   
 }
 
 
